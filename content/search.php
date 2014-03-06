@@ -1,0 +1,89 @@
+
+<?php
+
+session_start();
+
+if (!isset($_SESSION['myusername'])){
+header('location:../login.php');
+}
+?>
+
+<?php include '../header.php'; ?>
+
+</br>
+</br>
+
+<html>
+<body>
+
+
+
+
+<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+query: <input type='text' name='query'> startIndex: <input type='text' name='startIndex'> count: <input type='text' name='count'> 
+<input type="submit" value='Submit'>
+
+</form>
+
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST")
+
+{
+
+
+$query= urlencode($_POST['query']);
+$param= "level=static";
+$startIndex= $_POST['startIndex'];
+$count= $_POST['count'];
+
+
+//echo $_SESSION['ResponseCookie'];
+$myCookie = $_SESSION['ResponseCookie'];
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array("Cookie: $myCookie;"));
+curl_setopt($ch, CURLOPT_URL, "{$api_url}/content/v2/search/?query=".$query . "&" .$param . "&count=".$count);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+//echo "<pre>$response</pre>";
+//var_dump(json_decode($response, true));
+//echo $query;
+$json = json_decode($response, true);
+echo '<pre>';
+//print_r($json);
+//print_r($json['results'][0]['similarContent']['values'][0]['generalInfo']);
+echo '</pre>';
+
+//$info = $json['results'][0]['generalInfo'];
+//echo json_encode($info, JSON_PRETTY_PRINT);
+
+
+echo "<b>"; echo "Search result for - " .$query; echo"</b>"; echo "<br>";echo "<br>";
+
+$i = 0;
+
+foreach ($json['results'] as $search) {
+    $i++;
+
+                                       
+	echo "Title = "  .$search['generalInfo']['title'];echo "<br>";
+
+		
+
+}
+
+}
+
+?>
+
+
+
+</body>
+</html>
+
+
+
+<?php include '../footer.php'; ?>
