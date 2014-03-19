@@ -44,6 +44,8 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array("Cookie: $myCookie;"));
 curl_setopt($ch, CURLOPT_URL, "{$api_url}/content/v2/contentDetail/".$contentId .$param .$pretty);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $response = curl_exec($ch);
+$request = "{$api_url}/content/v2/contentDetail/".$contentId .$param .$pretty;
+echo $request;
 echo "<pre>$response</pre>";
 }
 

@@ -127,6 +127,10 @@ echo "<center>Welcome<b> $email</b></center>";
 <td><a href="./billing/license.php">License By ContentId's</a> </td>
 <td><a href="./billing/validity_end.php">Validity End Date</a></td>
 </tr>
+<tr>
+<td><a href="./billing/expire_content.php">Expire Content</a> </td>
+
+</tr>
 
 
 <tr>

@@ -20,7 +20,7 @@ header('location:../login.php');
 
 
 <form method="POST" action="<?php echo ($_SERVER["PHP_SELF"]);?>">
-<span><b>Note:</b>comma separated for multiple OrderId's</span><br><br>	 
+<span><b>Note:</b> comma separated for multiple OrderId's and Expiring content result in lose of purchase and need to re-purchase the content</span><br><br>	 
 OrderId: <input type='text' name='orderId'> 
 <input type="submit" value='Submit'>
 
@@ -42,8 +42,23 @@ if (mysqli_connect_errno())
   {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
-$validity="SELECT * FROM ccbuser.ordered_product where ord_prod_id in ($orderId);"; 
 
+$expire="UPDATE ccbuser.ordered_product SET validity_end_date='2013-03-20 15:31:45' where ord_prod_id in ($orderId);";
+
+//echo $expire;
+
+$update=mysqli_query($con, $expire);
+
+if(! $update )
+{
+  die('Could not update data: ' . mysql_error());
+}
+
+
+echo " <center>Updated and Expired Successfully </center><br>";
+
+
+$validity="SELECT * FROM ccbuser.ordered_product where ord_prod_id in ($orderId);"; 
 
 $response=mysqli_query($con, $validity);
 
