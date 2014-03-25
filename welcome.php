@@ -146,6 +146,7 @@ echo "<center>Welcome<b> $email</b></center>";
 
 <tr>
 <td><a href="./others/free_movies.php">Free Movies</a> </td>
+<td><a href="./others/publish.php">Publish-Content</a> </td>
 
 
 </tr>
