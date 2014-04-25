@@ -34,7 +34,7 @@ $row = mysqli_fetch_array($result);
 $id=$row['user_id'];
 //echo $id;
 
-$client_key="SELECT client_key, expires_at, user_id FROM myplex_user_session where user_id='$id' and client_key is  not null order by client_key desc"; 
+$client_key="SELECT client_key, expires_at, user_id,device_id FROM myplex_user_session where user_id='$id' and client_key is  not null order by client_key desc"; 
 $response=mysqli_query($con, $client_key);
 
 echo "<center>";
@@ -43,6 +43,7 @@ echo "<table border='1' cellpadding='5'>
 <th style='background-color:#000; color:#fff;'>client_key</th>
 <th style='background-color:#000; color:#fff;'>expires_at</th>
 <th style='background-color:#000; color:#fff;'>user_id</th>
+<th style='background-color:#000; color:#fff;'>device_id</th>
 </tr>";
 
 while($row = mysqli_fetch_array($response) )
@@ -51,6 +52,7 @@ while($row = mysqli_fetch_array($response) )
   echo "<td style='background-color:gray; color:#fff;'>" . $row['client_key'] . "</td>";
   echo "<td style='background-color:gray; color:#fff;'>" . $row['expires_at'] . "</td>";
   echo "<td style='background-color:gray; color:#fff;'>" . $row['user_id'] . "</td>";
+  echo "<td style='background-color:gray; color:#fff;'>" . $row['device_id'] . "</td>";
   echo "</tr>";
   }
 echo "</table>";
